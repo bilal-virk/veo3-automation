@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flow Automation VEO3 - Admin Guide</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f5f5f5;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 60px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Header Styles */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding-bottom: 30px;
+      border-bottom: 3px solid #6366f1;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+
+    .header .subtitle {
+      font-size: 18px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    /* Section Styles */
+    .section {
+      margin-bottom: 40px;
+      page-break-inside: avoid;
+    }
+
+    .section-title {
+      font-size: 24px;
+      color: #1e293b;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-icon {
+      font-size: 28px;
+    }
+
+    .subsection {
+      margin-bottom: 25px;
+    }
+
+    .subsection-title {
+      font-size: 18px;
+      color: #475569;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    /* Steps */
+    .steps {
+      list-style: none;
+      counter-reset: step-counter;
+    }
+
+    .steps li {
+      counter-increment: step-counter;
+      margin-bottom: 15px;
+      padding-left: 40px;
+      position: relative;
+    }
+
+    .steps li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: #6366f1;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /* Bullet Lists */
+    .bullet-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .bullet-list li {
+      padding-left: 30px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .bullet-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* Info Box */
+    .info-box {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .info-box.warning {
+      background: #fef3c7;
+      border-left-color: #f59e0b;
+    }
+
+    .info-box.success {
+      background: #d1fae5;
+      border-left-color: #10b981;
+    }
+
+    .info-box.important {
+      background: #fee2e2;
+      border-left-color: #ef4444;
+    }
+
+    .info-box-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+
+    table thead {
+      background: #6366f1;
+      color: white;
+    }
+
+    table th,
+    table td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #e2e8f0;
+    }
+
+    table tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    /* Code */
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #dc2626;
+    }
+
+    .code-block {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+
+    /* Highlight Box */
+    .highlight {
+      background: #fef9c3;
+      padding: 15px;
+      border-radius: 6px;
+      margin: 15px 0;
+      border: 1px solid #fde047;
+    }
+
+    /* Tips */
+    .tip {
+      background: #f0fdf4;
+      border-left: 4px solid #22c55e;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+
+    .tip-title {
+      font-weight: 600;
+      color: #166534;
+      margin-bottom: 8px;
+    }
+
+    /* Screenshot placeholder */
+    .screenshot {
+      background: #f8fafc;
+      border: 2px dashed #cbd5e1;
+      padding: 40px;
+      text-align: center;
+      margin: 20px 0;
+      border-radius: 8px;
+      color: #64748b;
+      font-style: italic;
+    }
+
+    /* Page Break for PDF */
+    @media print {
+      .page-break {
+        page-break-before: always;
+      }
+
+      .container {
+        box-shadow: none;
+        padding: 20px;
+      }
+
+      body {
+        background: white;
+        padding: 0;
+      }
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 2px solid #e2e8f0;
+      color: #64748b;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>🔧 Flow Automation VEO3</h1>
+      <p class="subtitle">Administrator Setup Guide</p>
+    </div>
+
+    <!-- Overview -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="section-icon">📋</span>
+        Overview
+      </h2>
+
+      <p style="margin-bottom: 20px;">
+        This guide will help you set up and configure the complete Flow Automation VEO3 system. You'll learn how to:
+      </p>
+
+      <ul class="bullet-list">
+        <li>Set up n8n workflow automation</li>
+        <li>Configure Google Service Account credentials</li>
+        <li>Create and configure the Master Sheet</li>
+        <li>Add client access for the Chrome extension</li>
+        <li>Monitor and manage the automation system</li>
+      </ul>
+    </div>
+
+    <!-- System Architecture -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="section-icon">🏗️</span>
+        System Architecture
+      </h2>
+
+      <div class="info-box">
+        <div class="info-box-title">How the System Works:</div>
+        <ol style="margin-left: 20px; margin-top: 10px;">
+          <li><strong>Master Sheet:</strong> Contains client information and their Google Sheet URLs</li>
+          <li><strong>n8n Workflow:</strong> Reads from Master Sheet, processes client sheets, generates AI prompts</li>
+          <li><strong>Client Sheets:</strong> Each client has Sheet1 (input) and n8n sheet (processed data)</li>
+          <li><strong>Chrome Extension:</strong> Reads from n8n sheet and creates videos on VEO3</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Google Service Account Setup -->
+    <div class="section page-break">
+      <h2 class="section-title">
+        <span class="section-icon">🔐</span>
+        Step 1: Google Service Account Setup
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">What is a Service Account?</h3>
+        <p style="margin-bottom: 15px;">
+          A Service Account is a special Google account that allows automated systems (like n8n) to access Google Sheets without requiring a human to log in each time.
+        </p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Creating the Service Account (If Not Already Created)</h3>
+        
+        <div class="info-box important">
+          <div class="info-box-title">⚠️ Note</div>
+          <p>If you already have the service account, you can skip this section and go to "Adding Service Account to n8n".</p>
+        </div>
+
+        <ol class="steps">
+          <li>Go to <a href="https://console.cloud.google.com" target="_blank">Google Cloud Console</a></li>
+          <li>Select your project or create a new one</li>
+          <li>Navigate to: <strong>IAM & Admin</strong> → <strong>Service Accounts</strong></li>
+          <li>Click <strong>"Create Service Account"</strong></li>
+          <li>Enter a name (e.g., "n8n-automation")</li>
+          <li>Click <strong>"Create and Continue"</strong></li>
+          <li>Skip role assignment, click <strong>"Continue"</strong></li>
+          <li>Click <strong>"Done"</strong></li>
+          <li>Click on the created service account</li>
+          <li>Go to the <strong>"Keys"</strong> tab</li>
+          <li>Click <strong>"Add Key"</strong> → <strong>"Create new key"</strong></li>
+          <li>Select <strong>"JSON"</strong> format</li>
+          <li>Click <strong>"Create"</strong> (the JSON file will download)</li>
+          <li>Save this JSON file securely - you'll need it for n8n</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Enable Google Sheets API</h3>
+        <ol class="steps">
+          <li>In Google Cloud Console, go to <strong>"APIs & Services"</strong> → <strong>"Library"</strong></li>
+          <li>Search for "Google Sheets API"</li>
+          <li>Click on it and click <strong>"Enable"</strong></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- n8n Setup -->
+    <div class="section page-break">
+      <h2 class="section-title">
+        <span class="section-icon">⚙️</span>
+        Step 2: n8n Workflow Setup
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">2.1: Add Service Account Credentials to n8n</h3>
+        
+        <ol class="steps">
+          <li>Log in to your n8n instance</li>
+          <li>Click on <strong>"Credentials"</strong> in the left sidebar</li>
+          <li>Click <strong>"Add Credential"</strong></li>
+          <li>Search for and select <strong>"Google Service Account API"</strong></li>
+
+          <li>Open the JSON file you downloaded earlier</li>
+          <li>Copy the <strong>Service Account Email</strong> and <strong>Private Key</strong> from JSON file</li>
+          <li>Paste it in the <strong>"Service Account Email"</strong> and <strong>"Private Key"</strong> fields in n8n</li>
+          <li>Click <strong>"Save"</strong></li>
+        </ol>
+
+    
+        <div class="info-box success">
+          <div class="info-box-title">Connection Tested Successfully</div>
+          <p>You should see your credential in the credentials list.</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">2.2: Import the n8n Workflow</h3>
+        
+        <ol class="steps">
+          <li>In n8n, click <strong>"Workflows"</strong> in the left sidebar</li>
+          <li>Click <strong>"Add Workflow"</strong> → <strong>"Import from File"</strong></li>
+          <li>Select the provided workflow JSON file: <code>veo3-master-workflow.json</code></li>
+          <li>The workflow will be imported and opened</li>
+        </ol>
+
+        <div class="tip">
+          <div class="tip-title">💡 Tip</div>
+          <p>The workflow file should be provided with this documentation package.</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">2.3: Configure Workflow Credentials</h3>
+        
+        <p style="margin-bottom: 15px;">After importing, you need to link your Google Service Account credential to all Google Sheets nodes:</p>
+
+        <ol class="steps">
+          <li>Click on the <strong>"Read Master Sheet"</strong> node</li>
+          <li>Update <strong>"Document"</strong> By URL input with the URL of your Master Sheet</li>
+          <li>In the <strong>"Credential to connect with"</strong> dropdown, select your Google Service Account credential</li>
+          <li>Repeat this for ALL Google Sheets nodes in the workflow:
+            <ul style="margin-left: 40px; margin-top: 10px;">
+              <li>Read Master Sheet</li>
+              <li>Read Client Sheet</li>
+              <li>Write to n8n Sheet</li>
+              <li>Mark Row as Done</li>
+            </ul>
+          </li>
+          <li>Click <strong>"Save"</strong> after updating each node</li>
+        </ol>
+
+        <div class="info-box warning">
+          <div class="info-box-title">⚠️ Important</div>
+          <p>If you skip this step, the workflow will fail with authentication errors.</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">2.4: Add OpenAI Credentials</h3>
+        
+        <ol class="steps">
+          <li>Go to <strong>"Credentials"</strong> → <strong>"Add Credential"</strong></li>
+          <li>Search for <strong>"OpenAI"</strong></li>
+          <li>Enter your OpenAI API Key</li>
+          <li>Click <strong>"Save"</strong></li>
+          <li>Go back to the workflow</li>
+          <li>Click on the <strong>"Generate with OpenAI"</strong> node</li>
+          <li>Select your OpenAI credential</li>
+          <li>Click <strong>"Save"</strong></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Master Sheet Setup -->
+    <div class="section page-break">
+      <h2 class="section-title">
+        <span class="section-icon">📊</span>
+        Step 3: Master Sheet Setup
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">3.1: Create the Master Google Sheet</h3>
+        
+        <ol class="steps">
+          <li>Go to <a href="https://sheets.google.com" target="_blank">Google Sheets</a></li>
+          <li>Create a new blank spreadsheet</li>
+          <li>Name it: <strong>"VEO3 Master Sheet"</strong> (or any name you prefer)</li>
+          <li>Rename the first sheet tab to: <strong>"Credentials"</strong> (must be exact)</li>
+        </ol>
+
+        <div class="info-box important">
+          <div class="info-box-title">⚠️ Critical</div>
+          <p>The sheet name must be exactly <strong>"Credentials"</strong> - the n8n workflow looks for this specific name.</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">3.2: Set Up Master Sheet Columns</h3>
+        
+        <p style="margin-bottom: 15px;">Add these column headers in Row 1:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Column A</th>
+              <th>Column B</th>
+              <th>Column C</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Email</strong></td>
+              <td><strong>Name</strong></td>
+              <td><strong>Google Sheets URL</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="highlight">
+          <strong>Example Master Sheet:</strong><br><br>
+          <table style="margin: 0;">
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Google Sheets URL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>john@example.com</td>
+                <td>John Doe</td>
+                <td>https://docs.google.com/spreadsheets/d/ABC123...</td>
+              </tr>
+              <tr>
+                <td>jane@company.com</td>
+                <td>Jane Smith</td>
+                <td>https://docs.google.com/spreadsheets/d/XYZ789...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">3.3: Share Master Sheet with Service Account</h3>
+        
+        <ol class="steps">
+          <li>Click the <strong>"Share"</strong> button (top-right of Google Sheets)</li>
+          <li>Enter the service account email: <code>google-sheet-reader@civil-tempo-479514-t9.iam.gserviceaccount.com</code></li>
+          <li>Set permission to <strong>"Editor"</strong></li>
+          
+          <li>Click <strong>"Share"</strong></li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">3.4: Copy Master Sheet URL</h3>
+        
+        <ol class="steps">
+          <li>Copy the URL from your browser's address bar</li>
+          <li>It should look like: <code>https://docs.google.com/spreadsheets/d/1SVZKyHVnTlMBM4I586JrKVYe0AHqv_DNX3LYiVTRMRc/edit...</code></li>
+          <li>Save this URL - you'll need it in the next step</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Configure n8n with Master Sheet -->
+    <div class="section page-break">
+      <h2 class="section-title">
+        <span class="section-icon">🔗</span>
+        Step 4: Link Master Sheet to n8n
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Update the "Read Master Sheet" Node</h3>
+        
+        <ol class="steps">
+          <li>In n8n, open the <strong>"Veo3 Master"</strong> workflow</li>
+          <li>Click on the <strong>"Read Master Sheet"</strong> node (first node)</li>
+          <li>In the node settings, find <strong>"Document"</strong> field</li>
+          <li>Select <strong>"By URL"</strong> from the dropdown</li>
+          <li>Paste your Master Sheet URL</li>
+          <li>Verify <strong>"Sheet Name"</strong> is set to: <code>Credentials</code></li>
+          <li>Click <strong>"Save"</strong></li>
+        </ol>
+
+
+        <div class="info-box success">
+          <div class="info-box-title">✅ Test the Connection</div>
+          <p>Click the <strong>"Test Workflow"</strong> button. If successful, you should see data from your Master Sheet in the node output.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client Sheet Setup -->
+    <div class="section page-break">
+      <h2 class="section-title">
+        <span class="section-icon">👥</span>
+        Step 5: Setting Up Client Sheets
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">5.1: Create Client Sheet Structure</h3>
+        
+        <p style="margin-bottom: 15px;">Each client needs a Google Sheet with TWO sheets inside it:</p>
+
+        <div class="info-box">
+          <div class="info-box-title">Required Sheets:</div>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <li><strong>Sheet1:</strong> Client's input data</li>
+            <li><strong>n8n:</strong> Processed data (for Chrome extension)</li>
+          </ul>
+        </div>
+
+        <ol class="steps">
+          <li>Create a new Google Sheet for the client</li>
+          <li>Rename the first sheet to: <strong>"Sheet1"</strong></li>
+          <li>Click the <strong>"+"</strong> button to add a second sheet</li>
+          <li>Rename it to: <strong>"n8n"</strong></li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">5.2: Sheet1 Columns (Client Input)</h3>
+        
+        <p style="margin-bottom: 15px;">Add these column headers to Sheet1:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Header Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>A</td><td>Status</td></tr>
+            <tr><td>B</td><td>User description</td></tr>
+            <tr><td>C</td><td>Genre</td></tr>
+            <tr><td>D</td><td>Style</td></tr>
+            <tr><td>E</td><td>Videos to Generate</td></tr>
+            <tr><td>F</td><td>Format</td></tr>
+            <tr><td>G</td><td>Video Duration</td></tr>
+            <tr><td>H</td><td>Language</td></tr>
+            <tr><td>I</td><td>Character Rules</td></tr>
+            <tr><td>J</td><td>Final Description</td></tr>
+            <tr><td>K</td><td>Viral Titles</td></tr>
+            <tr><td>L</td><td>Tags</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">5.3: n8n Sheet Columns (Processed Output)</h3>
+        
+        <p style="margin-bottom: 15px;">Add these column headers to the n8n sheet:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Header Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>A</td><td>Status</td></tr>
+            <tr><td>B</td><td>Prompt</td></tr>
+            <tr><td>C</td><td>Aspect Ratio</td></tr>
+            <tr><td>D</td><td>Number of videos to generate</td></tr>
+            <tr><td>E</td><td>Row Number</td></tr>
+          </tbody>
+        </table>
+
+        <div class="info-box">
+          <div class="info-box-title">ℹ️ Note</div>
+          <p>The n8n sheet will be automatically populated by the workflow. Clients should not edit this sheet.</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">5.4: Share Client Sheet</h3>
+        
+        <ol class="steps">
+          <li>Open the client's Google Sheet</li>
+          <li>Click <strong>"Share"</strong> button</li>
+          <li>Add the service account: <code>google-sheet-reader@civil-tempo-479514-t9.iam.gserviceaccount.com</code></li>
+          <li>Set permission to <strong>"Editor"</strong></li>
+          <li>Click <strong>"Share"</strong></li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">5.5: Add Client to Master Sheet</h3>
+        
+        <ol class="steps">
+          <li>Open your Master Sheet</li>
+          <li>Add a new row with:
+            <ul style="margin-left: 40px; margin-top: 10px;">
+              <li><strong>Email:</strong> Client's email for Chrome extension login</li>
+              <li><strong>Name:</strong> Client's full name</li>
+              <li><strong>Google Sheets URL:</strong> URL of their client sheet</li>
+            </ul>
+          </li>
+          <li>Save the sheet</li>
+        </ol>
+
+        <div class="highlight">
+          <strong>Example Entry:</strong><br>
+          Email: <code>client@example.com</code><br>
+          Name: <code>John Doe</code><br>
+          Google Sheets URL: <code>https://docs.google.com/spreadsheets/d/ABC123XYZ...</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activate Workflow -->
+    <div class="section page-break">
+      <h2 class="section-title">
+        <span class="section-icon">🚀</span>
+        Step 6: Activate the Workflow
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Start Automation</h3>
+        
+        <ol class="steps">
+          <li>In n8n, open the <strong>"Veo3 Master"</strong> workflow</li>
+          <li>Click the <strong>"Active"</strong> toggle switch (top-right)</li>
+          <li>The workflow will now run automatically every 1 minute</li>
+        </ol>
+
+        <div class="info-box success">
+          <div class="info-box-title">✅ What Happens Now</div>
+          <p>Every minute, the workflow will:</p>
+          <ol style="margin-left: 20px; margin-top: 10px;">
+            <li>Read the Master Sheet for client information</li>
+            <li>Check each client's Sheet1 for unprocessed rows</li>
+            <li>Generate AI prompts using OpenAI</li>
+            <li>Write processed data to the client's n8n sheet</li>
+            <li>Mark rows as "Done" in Sheet1</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Monitor Workflow Execution</h3>
+        
+        <ul class="bullet-list">
+          <li>Click <strong>"Executions"</strong> in the left sidebar to see workflow runs</li>
+          <li>Green = Success, Red = Error</li>
+          <li>Click on any execution to see detailed logs</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Chrome Extension Distribution -->
+    <div class="section page-break">
+      <h2 class="section-title">
+        <span class="section-icon">📦</span>
+        Step 7: Distribute Chrome Extension
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Prepare Extension Package</h3>
+        
+        <ol class="steps">
+          <li>Ensure you have the extension folder with all files</li>
+          <li>Compress the folder into a ZIP file</li>
+          <li>Name it: <code>veo3-automation-extension.zip</code></li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Send to Clients</h3>
+        
+        <ol class="steps">
+          <li>Email the ZIP file to authorized clients</li>
+          <li>Include the user guide: <code>VEO3-User-Guide.pdf</code></li>
+          <li>Confirm their email is added to the Master Sheet</li>
+        </ol>
+
+        <div class="tip">
+          <div class="tip-title">💡 Security Tip</div>
+          <p>Only clients whose emails are in the Master Sheet can log in to the extension.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Adding New Clients -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="section-icon">➕</span>
+        Adding New Clients
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Quick Client Setup Checklist</h3>
+        
+        <ol class="steps">
+          <li>✅ Create new Google Sheet for client</li>
+          <li>✅ Add "Sheet1" with 12 columns</li>
+          <li>✅ Add "n8n" sheet with 5 columns</li>
+          <li>✅ Share sheet with service account: <code>google-sheet-reader@civil-tempo-479514-t9.iam.gserviceaccount.com</code></li>
+          <li>✅ Copy the sheet URL</li>
+          <li>✅ Add client to Master Sheet (Email, Name, URL)</li>
+          <li>✅ Send extension ZIP and user guide to client</li>
+          <li>✅ Verify client can log in to extension</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="section page-break">
+      <h2 class="section-title">
+        <span class="section-icon">🔧</span>
+        Troubleshooting
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Workflow Errors</h3>
+        
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: "Authentication failed"</div>
+          <p><strong>Solution:</strong></p>
+          <ul style="margin-left: 20px; margin-top: 5px;">
+            <li>Check that Google Service Account credential is properly configured</li>
+            <li>Verify all Google Sheets nodes have the credential selected</li>
+            <li>Ensure service account email has Editor access to sheets</li>
+          </ul>
+        </div>
+
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: "Sheet not found"</div>
+          <p><strong>Solution:</strong></p>
+          <ul style="margin-left: 20px; margin-top: 5px;">
+            <li>Check sheet name is exactly "Credentials" in Master Sheet</li>
+            <li>Verify sheet names "Sheet1" and "n8n" in client sheets</li>
+            <li>Confirm URLs in Master Sheet are correct</li>
+          </ul>
+        </div>
+
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: "OpenAI API error"</div>
+          <p><strong>Solution:</strong></p>
+          <ul style="margin-left: 20px; margin-top: 5px;">
+            <li>Check OpenAI credential is configured</li>
+            <li>Verify API key is valid and has credits</li>
+            <li>Check OpenAI API usage limits</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Client Extension Issues</h3>
+        
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: Client can't log in</div>
+          <p><strong>Solution:</strong></p>
+          <ul style="margin-left: 20px; margin-top: 5px;">
+            <li>Verify their email is in the Master Sheet</li>
+            <li>Check spelling of email (case-sensitive)</li>
+            <li>Ensure Master Sheet is shared with service account</li>
+          </ul>
+        </div>
+
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: No data showing in extension</div>
+          <p><strong>Solution:</strong></p>
+          <ul style="margin-left: 20px; margin-top: 5px;">
+            <li>Verify n8n workflow is active</li>
+            <li>Check client's sheet URL in Master Sheet</li>
+            <li>Ensure client's sheet has "n8n" tab</li>
+            <li>Confirm n8n has processed some rows</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monitoring -->
+    <div class="section page-break">
+      <h2 class="section-title">
+        <span class="section-icon">📊</span>
+        Monitoring and Maintenance
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Regular Monitoring Tasks</h3>
+        
+        <ul class="bullet-list">
+          <li><strong>Daily:</strong> Check n8n executions for errors</li>
+          <li><strong>Weekly:</strong> Review OpenAI API usage and costs</li>
+          <li><strong>Monthly:</strong> Audit Master Sheet for inactive clients</li>
+          <li><strong>As Needed:</strong> Update extension when new features are added</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Best Practices</h3>
+        
+        <ul class="bullet-list">
+          <li>Keep a backup of the Master Sheet</li>
+          <li>Document any custom changes to the workflow</li>
+          <li>Test with a demo client before onboarding real clients</li>
+          <li>Monitor OpenAI costs and set up usage alerts</li>
+          <li>Keep service account credentials secure</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- System Limits -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="section-icon">⚠️</span>
+        System Limits & Quotas
+      </h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Limit</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Google Sheets API</td>
+            <td>300 requests/min per project</td>
+            <td>Shared across all clients</td>
+          </tr>
+          <tr>
+            <td>OpenAI API</td>
+            <td>Based on your plan</td>
+            <td>Monitor usage dashboard</td>
+          </tr>
+          <tr>
+            <td>n8n Workflow</td>
+            <td>1-minute interval</td>
+            <td>Adjustable in "Every 1 Minutes" node</td>
+          </tr>
+          <tr>
+            <td>Chrome Extension</td>
+            <td>60-second check interval</td>
+            <td>Configurable in extension settings</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Quick Reference -->
+    <div class="section page-break">
+      <h2 class="section-title">
+        <span class="section-icon">📚</span>
+        Quick Reference
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Important Credentials</h3>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Service Account Email</strong></td>
+              <td><code>google-sheet-reader@civil-tempo-479514-t9.iam.gserviceaccount.com</code></td>
+            </tr>
+            <tr>
+              <td><strong>Master Sheet Tab Name</strong></td>
+              <td><code>Credentials</code></td>
+            </tr>
+            <tr>
+              <td><strong>Client Input Sheet</strong></td>
+              <td><code>Sheet1</code></td>
+            </tr>
+            <tr>
+              <td><strong>Processed Data Sheet</strong></td>
+              <td><code>n8n</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">n8n Workflow Nodes (Key Ones)</h3>
+        
+        <ul class="bullet-list">
+          <li><strong>Every 1 Minutes:</strong> Trigger node - controls workflow frequency</li>
+          <li><strong>Read Master Sheet:</strong> Reads client list - UPDATE THIS with your Master Sheet URL</li>
+          <li><strong>Read Client Sheet:</strong> Reads client's Sheet1 data</li>
+          <li><strong>Generate with OpenAI:</strong> Creates AI prompts</li>
+          <li><strong>Write to n8n Sheet:</strong> Saves processed data</li>
+          <li><strong>Mark Row as Done:</strong> Updates status in Sheet1</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Support -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="section-icon">💬</span>
+        Getting Help
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Resources</h3>
+        
+        <ul class="bullet-list">
+          <li><strong>n8n Documentation:</strong> <a href="https://docs.n8n.io" target="_blank">docs.n8n.io</a></li>
+          <li><strong>Google Sheets API:</strong> <a href="https://developers.google.com/sheets/api" target="_blank">developers.google.com/sheets/api</a></li>
+          <li><strong>OpenAI API:</strong> <a href="https://platform.openai.com/docs" target="_blank">platform.openai.com/docs</a></li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Common Support Questions</h3>
+        
+        <div class="info-box">
+          <p><strong>Q: How do I change the workflow frequency?</strong></p>
+          <p>A: Edit the "Every 1 Minutes" node and adjust the interval.</p>
+        </div>
+
+        <div class="info-box">
+          <p><strong>Q: Can clients have multiple sheets?</strong></p>
+          <p>A: No, each client should have one sheet URL in the Master Sheet.</p>
+        </div>
+
+        <div class="info-box">
+          <p><strong>Q: How do I remove a client?</strong></p>
+          <p>A: Simply delete their row from the Master Sheet. Their sheet will no longer be processed.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p><strong>Flow Automation VEO3</strong> - Administrator Guide</p>
+    </div>
+  </div>
+</body>
+</html>

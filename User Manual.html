@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flow Automation VEO3 - User Guide</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f5f5f5;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 60px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Header Styles */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding-bottom: 30px;
+      border-bottom: 3px solid #6366f1;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+
+    .header .subtitle {
+      font-size: 18px;
+      color: #64748b;
+    }
+
+    /* Table of Contents */
+    .toc {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 30px;
+      margin-bottom: 50px;
+    }
+
+    .toc h2 {
+      font-size: 24px;
+      color: #1e293b;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .toc-list > li {
+      margin-bottom: 12px;
+    }
+
+    .toc-list a {
+      color: #6366f1;
+      text-decoration: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .toc-list a:hover {
+      color: #4f46e5;
+      transform: translateX(5px);
+    }
+
+    .toc-list a::before {
+      content: "→";
+      color: #94a3b8;
+    }
+
+    .toc-sublist {
+      list-style: none;
+      padding-left: 30px;
+      margin-top: 8px;
+    }
+
+    .toc-sublist li {
+      margin-bottom: 6px;
+    }
+
+    .toc-sublist a {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .toc-sublist a::before {
+      content: "•";
+      color: #cbd5e1;
+    }
+
+    /* Section Styles */
+    .section {
+      margin-bottom: 40px;
+      page-break-inside: avoid;
+      scroll-margin-top: 20px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      color: #1e293b;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-icon {
+      font-size: 28px;
+    }
+
+    .subsection {
+      margin-bottom: 25px;
+    }
+
+    .subsection-title {
+      font-size: 18px;
+      color: #475569;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    /* Steps */
+    .steps {
+      list-style: none;
+      counter-reset: step-counter;
+    }
+
+    .steps li {
+      counter-increment: step-counter;
+      margin-bottom: 15px;
+      padding-left: 40px;
+      position: relative;
+    }
+
+    .steps li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: #6366f1;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /* Bullet Lists */
+    .bullet-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .bullet-list li {
+      padding-left: 30px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .bullet-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* Info Box */
+    .info-box {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .info-box.warning {
+      background: #fef3c7;
+      border-left-color: #f59e0b;
+    }
+
+    .info-box.success {
+      background: #d1fae5;
+      border-left-color: #10b981;
+    }
+
+    .info-box.important {
+      background: #fee2e2;
+      border-left-color: #ef4444;
+    }
+
+    .info-box-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+
+    table thead {
+      background: #6366f1;
+      color: white;
+    }
+
+    table th,
+    table td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #e2e8f0;
+    }
+
+    table tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    /* Code */
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #dc2626;
+    }
+
+    .code-block {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+
+    /* Highlight Box */
+    .highlight {
+      background: #fef9c3;
+      padding: 15px;
+      border-radius: 6px;
+      margin: 15px 0;
+      border: 1px solid #fde047;
+    }
+
+    /* Tips */
+    .tip {
+      background: #f0fdf4;
+      border-left: 4px solid #22c55e;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+
+    .tip-title {
+      font-weight: 600;
+      color: #166534;
+      margin-bottom: 8px;
+    }
+
+    /* Page Break for PDF */
+    @media print {
+      .page-break {
+        page-break-before: always;
+      }
+
+      .container {
+        box-shadow: none;
+        padding: 20px;
+      }
+
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .toc a {
+        color: #1e293b;
+      }
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 2px solid #e2e8f0;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    /* Workflow Diagram */
+    .workflow-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 8px;
+      margin: 25px 0;
+      text-align: center;
+    }
+
+    .workflow-steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .workflow-step {
+      background: rgba(255,255,255,0.2);
+      padding: 15px;
+      border-radius: 6px;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .workflow-arrow {
+      font-size: 24px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Flow Automation VEO3</h1>
+      <p class="subtitle">Complete User Guide - Installation to Automation</p>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+      <h2>📋 Table of Contents</h2>
+      <ul class="toc-list">
+        <li>
+          <a href="#overview">🎯 System Overview</a>
+        </li>
+        <li>
+          <a href="#extension-installation">📦 Extension Installation</a>
+          <ul class="toc-sublist">
+            <li><a href="#extract">Extract the Extension</a></li>
+            <li><a href="#install-chrome">Install in Chrome</a></li>
+            <li><a href="#pin">Pin the Extension</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#n8n-setup">🔧 n8n Workflow Setup</a>
+          <ul class="toc-sublist">
+            <li><a href="#n8n-import">Import Workflow</a></li>
+            <li><a href="#n8n-credentials">Configure Credentials</a></li>
+            <li><a href="#n8n-activate">Activate Workflow</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#google-sheets">📊 Google Sheets Setup</a>
+          <ul class="toc-sublist">
+            <li><a href="#sheet1">Sheet1 - Input Sheet</a></li>
+            <li><a href="#n8n-sheet">n8n Sheet - Processing Sheet</a></li>
+            <li><a href="#share-sheet">Share Your Sheet</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#extension-setup">⚙️ Extension Configuration</a>
+          <ul class="toc-sublist">
+            <li><a href="#configure-sheet">Configure Google Sheet</a></li>
+            <li><a href="#test-connection">Test Connection</a></li>
+            <li><a href="#settings">Extension Settings</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#veo3-permissions">🔓 VEO3 Permissions</a>
+        </li>
+        <li>
+          <a href="#how-to-use">🎬 How to Use</a>
+        </li>
+        <li>
+          <a href="#video-formats">🎨 Video Format Options</a>
+        </li>
+        <li>
+          <a href="#troubleshooting">❓ Troubleshooting</a>
+        </li>
+        <li>
+          <a href="#quick-start">🎉 Quick Start Checklist</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Overview -->
+    <div class="section" id="overview">
+      <h2 class="section-title">
+        <span class="section-icon">🎯</span>
+        System Overview
+      </h2>
+
+      <p style="margin-bottom: 20px;">
+        Flow Automation VEO3 is an automated video generation system that creates videos using Google's VEO3 AI. The system works in three parts:
+      </p>
+
+      <div class="workflow-box">
+        <h3 style="margin-bottom: 20px;">How It Works</h3>
+        <div class="workflow-steps">
+          <div class="workflow-step">
+            <div style="font-size: 32px; margin-bottom: 10px;">📝</div>
+            <strong>You Add Rows</strong><br>
+            <small>Add video ideas to Sheet1</small>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div style="font-size: 32px; margin-bottom: 10px;">🤖</div>
+            <strong>n8n Processes</strong><br>
+            <small>AI generates prompts</small>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div style="font-size: 32px; margin-bottom: 10px;">⚡</div>
+            <strong>Extension Creates</strong><br>
+            <small>Videos auto-generated</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-box-title">Key Features:</div>
+        <ul class="bullet-list">
+          <li>Fully automated video generation</li>
+          <li>AI-powered prompt creation using OpenAI</li>
+          <li>Multiple video formats (16:9 landscape, 9:16 vertical)</li>
+          <li>Automatic download and organization</li>
+          <li>Real-time progress tracking</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Extension Installation -->
+    <div class="section page-break" id="extension-installation">
+      <h2 class="section-title">
+        <span class="section-icon">📦</span>
+        Extension Installation
+      </h2>
+
+      <div class="subsection" id="extract">
+        <h3 class="subsection-title">Step 1: Extract the Extension</h3>
+        <ol class="steps">
+          <li>Download the extension ZIP file</li>
+          <li>Right-click the ZIP file and select <strong>"Extract All"</strong> or <strong>"Extract Here"</strong></li>
+          <li>Remember the folder location where you extracted the files</li>
+        </ol>
+      </div>
+
+      <div class="subsection" id="install-chrome">
+        <h3 class="subsection-title">Step 2: Install in Chrome</h3>
+        <ol class="steps">
+          <li>Open <strong>Google Chrome</strong> browser</li>
+          <li>Type <code>chrome://extensions</code> in the address bar and press Enter</li>
+          <li>Turn ON <strong>"Developer mode"</strong> (toggle switch in top-right corner)</li>
+          <li>Click the <strong>"Load unpacked"</strong> button</li>
+          <li>Browse to the folder where you extracted the files</li>
+          <li>Select the folder and click <strong>"Select Folder"</strong></li>
+          <li>The extension is now installed! You'll see it in your extensions list</li>
+        </ol>
+      </div>
+
+      <div class="subsection" id="pin">
+        <h3 class="subsection-title">Step 3: Pin the Extension (Optional)</h3>
+        <ol class="steps">
+          <li>Click the puzzle icon (🧩) in Chrome toolbar</li>
+          <li>Find "Flow Automation veo3" in the list</li>
+          <li>Click the pin icon (📌) next to it</li>
+          <li>Now you can access it easily from your toolbar</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- n8n Setup -->
+    <div class="section page-break" id="n8n-setup">
+      <h2 class="section-title">
+        <span class="section-icon">🔧</span>
+        n8n Workflow Setup
+      </h2>
+
+      <p style="margin-bottom: 20px;">
+        n8n is the automation platform that processes your video requests and generates AI prompts. Follow these steps to set it up:
+      </p>
+
+      <div class="subsection" id="n8n-import">
+        <h3 class="subsection-title">Step 1: Import the Workflow</h3>
+        <ol class="steps">
+          <li>Log into your n8n account at <code>https://app.n8n.cloud</code> (or your self-hosted instance)</li>
+          <li>Click <strong>"Workflows"</strong> in the left sidebar</li>
+          <li>Click the <strong>"+"</strong> button or <strong>"Add Workflow"</strong></li>
+          <li>Click the <strong>three dots (⋮)</strong> in the top-right corner</li>
+          <li>Select <strong>"Import from File"</strong></li>
+          <li>Choose the <code>Veo3_Master.json</code> file provided to you</li>
+          <li>The workflow will be imported with all nodes</li>
+        </ol>
+      </div>
+
+      <div class="subsection" id="n8n-credentials">
+        <h3 class="subsection-title">Step 2: Configure Credentials</h3>
+        
+        <p style="margin-bottom: 15px;"><strong>You need to set up two credentials:</strong></p>
+
+        <div class="info-box important">
+          <div class="info-box-title">A. Google Service Account</div>
+          <ol style="margin-left: 20px; margin-top: 10px;">
+            <li>Click on the <strong>"+"</strong> node</li>
+            <li>Click on the <strong>"Credential"</strong> dropdown</li>
+            
+            <li>Select <strong>"Google Service Account API"</strong></li>
+            <li>Enter your service account JSON credentials</li>
+            <li>Save with name: <code>Google Service Account API</code></li>
+          </ol>
+        </div>
+
+        <div class="info-box important">
+          <div class="info-box-title">B. OpenAI API</div>
+          <ol style="margin-left: 20px; margin-top: 10px;">
+            <li>Click on the <strong>"+"</strong> node</li>
+            <li>Click on the <strong>"Credential"</strong> dropdown</li>            
+            <li>Select <strong>"OpenAI"</strong></li>
+            <li>Enter your OpenAI API key</li>
+            <li>Save with name: <code>OpenAi account</code></li>
+          </ol>
+        </div>
+
+        <div class="tip">
+          <div class="tip-title">💡 Getting Credentials</div>
+          <p><strong>Google Service Account:</strong> Create one in Google Cloud Console → IAM & Admin → Service Accounts or watch <a href="https://youtu.be/dGvphVu5lsc" target="_blank">this video</a></p>
+          <p style="margin-top: 8px;"><strong>OpenAI API Key:</strong> Get from <code>https://platform.openai.com/api-keys</code></p>
+        </div>
+      </div>
+
+      <div class="subsection" id="n8n-activate">
+        <h3 class="subsection-title">Step 3: Start the Workflow</h3>
+        <ol class="steps">
+          <li>Make sure all nodes are properly connected (they should be after import)</li>
+          <li>Click <strong>"Save"</strong> in the top-right corner</li>
+          <li>Click the <strong>"Activate"</strong> toggle switch to turn it ON</li>
+          <li>The workflow is now active and ready to process requests!</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Step 4: Execute Workflow</h3>
+        <ol class="steps">
+          <li>Click on the <strong>"Execute workflow"</strong></li>
+  
+          <li>Fill in the form with:
+            <ul style="margin-left: 40px; margin-top: 10px;">
+              <li><strong>Google Sheets URL:</strong> Your spreadsheet URL</li>
+              <li><strong>Sheet name:</strong> Sheet1 (where you add video ideas)</li>
+              <li><strong>Recheck Time:</strong> 60 seconds (recommended)</li>
+      
+            </ul>
+          </li>
+          <li>Submit & CLose the form - this starts the automation loop!</li>
+        </ol>
+
+        <div class="info-box success">
+          <div class="info-box-title">✅ What happens next?</div>
+          <p>The workflow will now check your Sheet1 every 60 seconds for new rows, process them with OpenAI, and add generated prompts to the n8n sheet.</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Understanding the Workflow</h3>
+        
+        <p style="margin-bottom: 15px;">The workflow consists of these key components:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Node</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>On form submission</strong></td>
+              <td>Trigger - starts the workflow with your sheet details</td>
+            </tr>
+            <tr>
+              <td><strong>Read Client Sheet</strong></td>
+              <td>Reads rows from your Sheet1</td>
+            </tr>
+            <tr>
+              <td><strong>If</strong></td>
+              <td>Filters only rows that aren't marked "Done"</td>
+            </tr>
+            <tr>
+              <td><strong>Prepare OpenAI Prompts</strong></td>
+              <td>Creates AI prompts from your video descriptions</td>
+            </tr>
+            <tr>
+              <td><strong>Generate with OpenAI</strong></td>
+              <td>Calls OpenAI GPT-4 to generate detailed video prompts</td>
+            </tr>
+            <tr>
+              <td><strong>Parse AI Response</strong></td>
+              <td>Extracts segments from OpenAI response</td>
+            </tr>
+            <tr>
+              <td><strong>Write to n8n Sheet</strong></td>
+              <td>Saves generated prompts to n8n sheet</td>
+            </tr>
+            <tr>
+              <td><strong>Mark Row as Done</strong></td>
+              <td>Updates Sheet1 status to "Done"</td>
+            </tr>
+            <tr>
+              <td><strong>Wait</strong></td>
+              <td>Waits 60 seconds before checking again</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Google Sheets Setup -->
+    <div class="section page-break" id="google-sheets">
+      <h2 class="section-title">
+        <span class="section-icon">📊</span>
+        Google Sheets Setup
+      </h2>
+
+      <div class="info-box important">
+        <div class="info-box-title">⚠️ Important</div>
+        <p>Your Google Spreadsheet must have TWO sheets: <strong>Sheet1</strong> and <strong>n8n</strong></p>
+      </div>
+
+      <div class="subsection" id="sheet1">
+        <h3 class="subsection-title">Sheet1 - Your Input Sheet</h3>
+        <p style="margin-bottom: 15px;">This is where you add your video requests. Required columns:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Description</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Status</strong></td>
+              <td>Leave empty (filled by n8n)</td>
+              <td>(empty) or "Done"</td>
+            </tr>
+            <tr>
+              <td><strong>User description</strong></td>
+              <td>Your video idea in simple words</td>
+              <td>"A sunset over the ocean"</td>
+            </tr>
+            <tr>
+              <td><strong>Genre</strong></td>
+              <td>Type of video</td>
+              <td>Nature, Tech, Comedy</td>
+            </tr>
+            <tr>
+              <td><strong>Style</strong></td>
+              <td>Visual style</td>
+              <td>Cinematic, Realistic, Animated</td>
+            </tr>
+            <tr>
+              <td><strong>Videos to Generate</strong></td>
+              <td>How many videos (1-4)</td>
+              <td>1, 2, 3, or 4</td>
+            </tr>
+            <tr>
+              <td><strong>Format</strong></td>
+              <td>Aspect ratio</td>
+              <td>16:9 or 9:16</td>
+            </tr>
+            <tr>
+              <td><strong>Video Duration</strong></td>
+              <td>Length in minutes</td>
+              <td>1 (for 1 minute)</td>
+            </tr>
+            <tr>
+              <td><strong>Language</strong></td>
+              <td>Video language</td>
+              <td>English, Spanish, etc.</td>
+            </tr>
+            <tr>
+              <td><strong>Character Rules</strong></td>
+              <td>Character requirements</td>
+              <td>"Young woman, casual dress"</td>
+            </tr>
+            <tr>
+              <td><strong>Final Description</strong></td>
+              <td>Detailed description (optional)</td>
+              <td>More detailed version</td>
+            </tr>
+            <tr>
+              <td><strong>Viral Titles</strong></td>
+              <td>Suggested titles</td>
+              <td>"Amazing Ocean Sunset"</td>
+            </tr>
+            <tr>
+              <td><strong>Tags</strong></td>
+              <td>Keywords</td>
+              <td>ocean, sunset, nature</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="highlight">
+          <strong>Example Row:</strong><br>
+          Status: (empty) | User description: "A beautiful sunset over the ocean" | Genre: "Nature" | Style: "Cinematic" | Videos to Generate: 2 | Format: 16:9 | Video Duration: 1 | Language: English
+        </div>
+      </div>
+
+      <div class="subsection" id="n8n-sheet">
+        <h3 class="subsection-title">n8n Sheet - Processing Sheet</h3>
+        <p style="margin-bottom: 15px;">This sheet is automatically created and managed by n8n. The Chrome extension reads from here:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Description</th>
+              <th>Filled By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Status</strong></td>
+              <td>Processing status</td>
+              <td>Chrome Extension</td>
+            </tr>
+            <tr>
+              <td><strong>Prompt</strong></td>
+              <td>AI-generated video prompt</td>
+              <td>n8n (OpenAI)</td>
+            </tr>
+            <tr>
+              <td><strong>Aspect Ratio</strong></td>
+              <td>16:9 or 9:16</td>
+              <td>n8n (from Sheet1)</td>
+            </tr>
+            <tr>
+              <td><strong>Number of videos to generate</strong></td>
+              <td>1, 2, 3, or 4</td>
+              <td>n8n (from Sheet1)</td>
+            </tr>
+            <tr>
+              <td><strong>Row Number</strong></td>
+              <td>Original Sheet1 row reference</td>
+              <td>n8n</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="info-box">
+          <div class="info-box-title">How it works:</div>
+          <ol style="margin-left: 20px; margin-top: 10px;">
+            <li>You add rows to <strong>Sheet1</strong></li>
+            <li><strong>n8n</strong> reads them, generates prompts with OpenAI</li>
+            <li><strong>n8n</strong> creates the <strong>n8n sheet</strong> (if it doesn't exist)</li>
+            <li><strong>n8n</strong> adds processed data to n8n sheet</li>
+            <li><strong>Extension</strong> reads from n8n sheet and creates videos</li>
+            <li><strong>Extension</strong> marks rows as "Done" when complete</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="subsection" id="share-sheet">
+        <h3 class="subsection-title">Share Your Google Sheet</h3>
+        <div class="info-box important">
+          <div class="info-box-title">⚠️ Critical Step</div>
+          <p style="margin-bottom: 10px;">Share your Google Sheet with the service account email:</p>
+          <code>google-sheet-reader@civil-tempo-479514-t9.iam.gserviceaccount.com</code>
+        </div>
+
+        <ol class="steps" style="margin-top: 20px;">
+          <li>Open your Google Sheet</li>
+          <li>Click the <strong>"Share"</strong> button (top-right)</li>
+          <li>Paste the email: <code>google-sheet-reader@civil-tempo-479514-t9.iam.gserviceaccount.com</code></li>
+          <li>Give it <strong>"Editor"</strong> access</li>
+          <li>Click <strong>"Send"</strong></li>
+        </ol>
+
+        <div class="tip">
+          <div class="tip-title">💡 Why share?</div>
+          <p>Both n8n and the Chrome extension use this service account to read and update your Google Sheet.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extension Setup -->
+    <div class="section page-break" id="extension-setup">
+      <h2 class="section-title">
+        <span class="section-icon">⚙️</span>
+        Extension Configuration
+      </h2>
+
+      <div class="subsection" id="configure-sheet">
+        <h3 class="subsection-title">Step 1: Configure Google Sheet</h3>
+        <ol class="steps">
+          <li>Click the extension icon in Chrome toolbar</li>
+          <li>Click the <strong>"Settings"</strong> tab</li>
+          <li>In the <strong>"Google Sheet URL"</strong> field, paste your Google Sheet URL or ID</li>
+          <li>The sheet name is automatically set to <strong>"n8n"</strong></li>
+        </ol>
+
+        <div class="info-box">
+          <div class="info-box-title">ℹ️ Accepted formats:</div>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>Full URL: <code>https://docs.google.com/spreadsheets/d/1G4Dkh0u3-9JsGp.../edit</code></li>
+            <li>Sheet ID only: <code>1G4Dkh0u3-9JsGpHhcTeXzSgRDCwTJf-hYcK_dYIlYnM</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection" id="test-connection">
+        <h3 class="subsection-title">Step 2: Test Connection</h3>
+        <ol class="steps">
+          <li>After entering your sheet URL, click <strong>"Test Connection"</strong></li>
+          <li>The extension will verify:
+            <ul style="margin-left: 40px; margin-top: 10px;">
+              <li>Sheet is accessible</li>
+              <li>"n8n" sheet exists</li>
+              <li>Can read data from the sheet</li>
+            </ul>
+          </li>
+          <li>You'll see a success message with row count</li>
+        </ol>
+
+        <div class="info-box success">
+          <div class="info-box-title">✅ Connection Successful!</div>
+          <p>If you see this message, you're ready to start automation!</p>
+        </div>
+
+        <div class="info-box warning">
+          <div class="info-box-title">⚠️ Common Errors</div>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <li><strong>"Sheet not shared":</strong> Make sure you shared with the service account</li>
+            <li><strong>"No n8n sheet found":</strong> Run the n8n workflow first to create the sheet</li>
+            <li><strong>"Cannot access sheet":</strong> Check the URL is correct</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection" id="settings">
+        <h3 class="subsection-title">Step 3: Configure Other Settings</h3>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Setting</th>
+              <th>Purpose</th>
+              <th>Recommended Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Download Location</strong></td>
+              <td>Where videos are saved</td>
+              <td>Your preferred folder</td>
+            </tr>
+            <tr>
+              <td><strong>Auto-Check Interval</strong></td>
+              <td>How often to check for new rows (seconds)</td>
+              <td>60 seconds</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="tip">
+          <div class="tip-title">💡 Download Location</div>
+          <p>Click "Change Download Folder" to open Chrome download settings. Choose a dedicated folder for your videos to stay organized.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- VEO3 Permissions -->
+    <div class="section page-break" id="veo3-permissions">
+      <h2 class="section-title">
+        <span class="section-icon">🔓</span>
+        VEO3 Website Permissions
+      </h2>
+
+      <p style="margin-bottom: 20px;">
+        Before using the extension, you need to allow VEO3 website to download multiple files automatically:
+      </p>
+
+      <ol class="steps">
+        <li>Go to: <code>https://labs.google/fx/vi/tools/flow</code></li>
+        <li>Click the lock icon (🔒) in the address bar</li>
+        <li>Click <strong>"Site settings"</strong></li>
+        <li>Find <strong>"Automatic downloads"</strong></li>
+        <li>Change it to <strong>"Allow"</strong></li>
+        <li>Close the settings and refresh the page</li>
+      </ol>
+
+      <div class="info-box warning">
+        <div class="info-box-title">⚠️ Important</div>
+        <p>Without this permission, the extension cannot download videos automatically. You'll need to download them manually.</p>
+      </div>
+    </div>
+
+    <!-- How to Use -->
+    <div class="section page-break" id="how-to-use">
+      <h2 class="section-title">
+        <span class="section-icon">🎬</span>
+        How to Use the Extension
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Step 1: Add Video Ideas to Sheet1</h3>
+        <ol class="steps">
+          <li>Open your Google Sheet</li>
+          <li>Go to <strong>Sheet1</strong> tab</li>
+          <li>Add rows with your video ideas (fill all required columns)</li>
+          <li>Leave the Status column empty</li>
+          <li>Save the sheet</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Step 2: Wait for n8n to Process</h3>
+        <ul class="bullet-list">
+          <li>n8n checks Sheet1 every 60 seconds</li>
+          <li>It processes unprocessed rows (where Status is empty)</li>
+          <li>Generates AI prompts using OpenAI</li>
+          <li>Adds them to the <strong>n8n sheet</strong></li>
+          <li>Marks Sheet1 rows as "Done"</li>
+        </ul>
+
+        <div class="tip">
+          <div class="tip-title">💡 Check Progress</div>
+          <p>You can check the <strong>n8n sheet</strong> tab to see processed prompts appearing.</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Step 3: Open VEO3</h3>
+        <ol class="steps">
+          <li>Go to: <code>https://labs.google/fx/vi/tools/flow</code></li>
+          <li>Make sure you're logged into your Google account</li>
+          <li>Keep this tab open (don't close it)</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Step 4: Start Extension Automation</h3>
+        <ol class="steps">
+          <li>Click the extension icon in Chrome toolbar</li>
+          <li>You'll see the <strong>Automation</strong> tab with stats:
+            <ul style="margin-left: 40px; margin-top: 10px;">
+              <li><strong>Total Rows:</strong> All rows in your n8n sheet</li>
+              <li><strong>Processed:</strong> Rows already completed</li>
+            </ul>
+          </li>
+          <li>Click the <strong>"Start Automation"</strong> button</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Step 5: Watch It Work</h3>
+        <p style="margin-bottom: 15px;">The extension will now:</p>
+        <ul class="bullet-list">
+          <li>Read each unprocessed row from the n8n sheet</li>
+          <li>Create the video on VEO3 using the AI-generated prompt</li>
+          <li>Download videos automatically</li>
+          <li>Mark the row as "Done" in n8n sheet</li>
+          <li>Move to the next row</li>
+          <li>Continue checking every 60 seconds for new rows</li>
+        </ul>
+
+        <div class="tip">
+          <div class="tip-title">💡 Real-time Progress</div>
+          <p>Watch the progress bar and activity log in the extension popup to see what's happening!</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Step 6: Stop Anytime (Optional)</h3>
+        <ul class="bullet-list">
+          <li>Click <strong>"Stop Automation"</strong> button to pause</li>
+          <li>You can resume later - it remembers where it stopped</li>
+          <li>Already processed rows are marked "Done" and won't be repeated</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Downloaded Videos</h3>
+        <p style="margin-bottom: 15px;">
+          Videos are saved to your Chrome download folder with organized names:
+        </p>
+
+        <div class="code-block">
+row2_video1_1734985123456.mp4
+row2_video2_1734985123457.mp4
+row3_video1_1734985234567.mp4
+        </div>
+
+        <div class="info-box">
+          <div class="info-box-title">File Naming Format:</div>
+          <p><code>row[number]_video[number]_[timestamp].mp4</code></p>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <li><strong>row[number]:</strong> Which row from the n8n sheet</li>
+            <li><strong>video[number]:</strong> Which video (if multiple were generated)</li>
+            <li><strong>timestamp:</strong> Unique identifier to prevent duplicates</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Formats -->
+    <div class="section" id="video-formats">
+      <h2 class="section-title">
+        <span class="section-icon">🎨</span>
+        Video Format Options
+      </h2>
+
+      <p style="margin-bottom: 20px;">Choose format based on where you'll use the video:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Format</th>
+            <th>Aspect Ratio</th>
+            <th>Best For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>16:9</strong></td>
+            <td>Landscape / Horizontal</td>
+            <td>YouTube, presentations, widescreen displays, TV, websites</td>
+          </tr>
+          <tr>
+            <td><strong>9:16</strong></td>
+            <td>Portrait / Vertical</td>
+            <td>TikTok, Instagram Reels, YouTube Shorts, mobile viewing, stories</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="section page-break" id="troubleshooting">
+      <h2 class="section-title">
+        <span class="section-icon">❓</span>
+        Troubleshooting
+      </h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Extension Issues</h3>
+
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: "VEO3 Tab Required" Warning</div>
+          <p><strong>Solution:</strong> Open <code>https://labs.google/fx/vi/tools/flow</code> in a new tab and keep it open</p>
+        </div>
+
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: "Cannot access sheet" Error</div>
+          <p><strong>Solutions:</strong></p>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>Make sure sheet is shared with: <code>google-sheet-reader@civil-tempo-479514-t9.iam.gserviceaccount.com</code></li>
+            <li>Check the sheet URL is correct</li>
+            <li>Verify the n8n sheet exists (run n8n workflow first)</li>
+          </ul>
+        </div>
+
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: Videos Not Downloading</div>
+          <p><strong>Solutions:</strong></p>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>Check VEO3 site has "Allow" permission for automatic downloads</li>
+            <li>Check Chrome download settings aren't blocking downloads</li>
+            <li>Verify you have enough disk space</li>
+            <li>Check your antivirus isn't blocking downloads</li>
+          </ul>
+        </div>
+
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: No Rows Being Processed</div>
+          <p><strong>Solutions:</strong></p>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>Check that n8n has processed your Sheet1 rows</li>
+            <li>Verify rows in n8n sheet don't already say "Done"</li>
+            <li>Make sure the extension is connected to the right sheet</li>
+            <li>Test the connection in Settings tab</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">n8n Workflow Issues</h3>
+
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: Workflow Not Processing Sheet1</div>
+          <p><strong>Solutions:</strong></p>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>Make sure workflow is <strong>Activated</strong> (toggle ON)</li>
+            <li>Check you submitted the initial form with sheet details</li>
+            <li>Verify Google Service Account credential is set up correctly</li>
+            <li>Make sure Sheet1 exists and is shared with service account</li>
+          </ul>
+        </div>
+
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: OpenAI Errors</div>
+          <p><strong>Solutions:</strong></p>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>Check your OpenAI API key is valid and has credits</li>
+            <li>Verify the OpenAI credential is set up correctly in n8n</li>
+            <li>Check OpenAI API usage limits</li>
+          </ul>
+        </div>
+
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: n8n Sheet Not Created</div>
+          <p><strong>Solutions:</strong></p>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>The workflow creates it automatically on first run</li>
+            <li>Check the workflow execution logs for errors</li>
+            <li>Verify Google Sheets credential has Editor permissions</li>
+            <li>Make sure the sheet is shared with the service account</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Google Sheets Issues</h3>
+
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: "Permission Denied" Errors</div>
+          <p><strong>Solution:</strong> The service account email must have <strong>Editor</strong> access, not just Viewer</p>
+        </div>
+
+        <div class="info-box warning">
+          <div class="info-box-title">Problem: Data Not Updating</div>
+          <p><strong>Solutions:</strong></p>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>Wait for the check interval (60 seconds default)</li>
+            <li>Refresh your Google Sheet to see latest changes</li>
+            <li>Check both Sheet1 and n8n sheet tabs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Start Checklist -->
+    <div class="section page-break" id="quick-start">
+      <h2 class="section-title">
+        <span class="section-icon">🎉</span>
+        Quick Start Checklist
+      </h2>
+
+      <p style="margin-bottom: 20px;">Before you begin, make sure you've completed:</p>
+
+      <div class="highlight">
+        <h3 style="margin-bottom: 15px;">Setup Checklist:</h3>
+        <ol class="steps">
+          <li>✅ Installed the Chrome extension</li>
+          <li>✅ Created Google Sheet with "Sheet1" and optionally "n8n" sheets (n8n creates it if missing)</li>
+          <li>✅ Added correct columns to Sheet1</li>
+          <li>✅ Shared the sheet with: <code>google-sheet-reader@civil-tempo-479514-t9.iam.gserviceaccount.com</code> (Editor access)</li>
+          <li>✅ Imported n8n workflow from JSON file</li>
+          <li>✅ Set up Google Service Account credential in n8n</li>
+          <li>✅ Set up OpenAI API credential in n8n</li>
+          <li>✅ Activated the n8n workflow</li>
+          <li>✅ Submitted the n8n form with your sheet details</li>
+          <li>✅ Configured Google Sheet URL in extension Settings</li>
+          <li>✅ Tested connection successfully</li>
+          <li>✅ Opened VEO3 website: <code>https://labs.google/fx/vi/tools/flow</code></li>
+          <li>✅ Allowed automatic downloads on VEO3 website</li>
+        </ol>
+      </div>
+
+      <div class="info-box success" style="margin-top: 30px;">
+        <div class="info-box-title">🚀 You're Ready!</div>
+        <ol style="margin-left: 20px; margin-top: 10px;">
+          <li>Add video ideas to Sheet1</li>
+          <li>Wait for n8n to process them (check n8n sheet)</li>
+          <li>Click "Start Automation" in the extension</li>
+          <li>Watch the videos get created automatically!</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="section-icon">💡</span>
+        Tips for Best Results
+      </h2>
+
+      <ul class="bullet-list">
+        <li><strong>Keep VEO3 tab open:</strong> Don't close it while automation runs</li>
+        <li><strong>Write clear descriptions:</strong> Be specific in Sheet1 about what you want</li>
+        <li><strong>Start small:</strong> Try 2-3 rows first to test the system</li>
+        <li><strong>Check downloads folder:</strong> Make sure you have enough disk space</li>
+        <li><strong>Monitor both sheets:</strong> Check Sheet1 for n8n status, n8n sheet for extension status</li>
+        <li><strong>Allow multiple downloads:</strong> Make sure VEO3 site has download permissions</li>
+        <li><strong>Watch activity logs:</strong> Both in n8n executions and extension popup</li>
+        <li><strong>Let n8n finish:</strong> Wait for n8n to process Sheet1 before expecting videos</li>
+        <li><strong>Be patient:</strong> Video generation can take 2-5 minutes per video</li>
+        <li><strong>Check OpenAI credits:</strong> Make sure you have enough API credits</li>
+      </ul>
+    </div>
+
+    <!-- Footer -->
+    <!-- <div class="footer">
+      <p><strong>Flow Automation VEO3</strong> - Automated Video Generation System</p>
+      <p style="margin-top: 10px;">Powered by Google VEO3, OpenAI GPT-4, and n8n Automation</p>
+      <p style="margin-top: 10px;">For support and updates, contact your system administrator</p>
+    </div> -->
+  </div>
+</body>
+</html>

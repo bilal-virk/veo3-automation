@@ -1,0 +1,9 @@
+__pycache__/
+.env
+*.log
+venv/
+.env/
+node_modules/
+.idea/
+.vscode/
+"service-account-credentials.js" 

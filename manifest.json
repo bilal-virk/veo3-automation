@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Flow Automation veo3",
+  "version": "2.3.0",
+  "description": "Automated video generation with Google Veo3",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "downloads",
+    "tabs",
+    "alarms",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://labs.google/*",
+    "https://sheets.googleapis.com/*",
+    "https://oauth2.googleapis.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Flow Automation"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://labs.google/*"],
+      "js": ["veo3-automation.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "48": "icons/icon48.png"
+  }
+}
